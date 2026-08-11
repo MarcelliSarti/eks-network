@@ -1,13 +1,17 @@
-# module "vpc" {
-#   source = "./vpc"
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
 
-#   project_name = var.project_name
-#   region       = var.region
+  enable_dns_hostnames = true
+  enable_dns_support   = true
 
-#   vpc_cidr            = var.vpc_cidr
-#   vpc_additional_cidrs = var.vpc_additional_cidrs
+  tags = {
+    Name = var.project_name
+  }
+}
 
-#   public_subnets   = var.public_subnets
-#   private_subnets  = var.private_subnets
-#   database_subnets = var.database_subnets
-# }
+resource "aws_vpc_ipv4_cidr_block_association" "main" {
+  count = length(var.vpc_additional_cidrs)
+
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.vpc_additional_cidrs[count.index]
+}
