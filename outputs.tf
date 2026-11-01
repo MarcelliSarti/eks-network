@@ -10,7 +10,7 @@ output "public_subnets_ids" {
   ]
 }
 
-output "private_subnet_ids" {
+output "private_subnets_ids" {
   description = "IDs das subnets privadas"
 
   value = [
