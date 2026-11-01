@@ -2,7 +2,7 @@ output "vpc_id" {
   value = aws_vpc.main.id
 }
 
-output "public_subnets" {
+output "public_subnets_ids" {
   description = "IDs das subnets publicas"
 
   value = [
@@ -18,7 +18,7 @@ output "private_subnet_ids" {
   ]
 }
 
-output "database_subnets" {
+output "database_subnets_ids" {
   description = "IDs das subnets database"
 
   value = [
