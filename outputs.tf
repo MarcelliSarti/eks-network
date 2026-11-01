@@ -3,13 +3,25 @@ output "vpc_id" {
 }
 
 output "public_subnets" {
-  value = aws_ssm_parameter.public_subnets[*].id
+  description = "IDs das subnets publicas"
+
+  value = [
+    for subnet in aws_subnet.public : subnet.id
+  ]
 }
 
-output "private_subnets" {
-  value = aws_ssm_parameter.private_subnets[*].id
+output "private_subnet_ids" {
+  description = "IDs das subnets privadas"
+
+  value = [
+    for subnet in aws_subnet.private : subnet.id
+  ]
 }
 
 output "database_subnets" {
-  value = aws_ssm_parameter.database_subnets[*].id
+  description = "IDs das subnets database"
+
+  value = [
+    for subnet in aws_subnet.database : subnet.id
+  ]
 }
