@@ -14,7 +14,19 @@ output "private_subnets_ids" {
   description = "IDs das subnets privadas"
 
   value = [
-    for subnet in aws_subnet.private : subnet.id
+    for index, subnet in aws_subnet.private :
+    subnet.id
+    if strcontains(var.private_subnets[index].name, "-private-")
+  ]
+}
+
+output "pod_subnets_ids" {
+  description = "IDs das subnets destinadas aos Pods"
+
+  value = [
+    for index, subnet in aws_subnet.private :
+    subnet.id
+    if strcontains(var.private_subnets[index].name, "-pods-")
   ]
 }
 
